@@ -7,15 +7,14 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { ScoreBoard } from "./ScoreBoard"
 
-const DEFAULT_WINNER_SCORE = 30
-
 export function GameStart({ onNext }: IFunnelProps) {
   const { 
     players, 
     currentRound, 
     currentPlayerIndex, 
     addScore, 
-    nextRound 
+    nextRound,
+    defaultWinScore
   } = useGameStore()
 
   const [tempScores, setTempScores] = useState<{ [key: number]: string }>({})
@@ -40,7 +39,7 @@ export function GameStart({ onNext }: IFunnelProps) {
       }
     })
 
-    const hasWinner = updatedScores.some(score => score >= DEFAULT_WINNER_SCORE)
+    const hasWinner = updatedScores.some(score => score >= defaultWinScore)
     
     if (hasWinner) {
       toast.success("게임이 종료되었습니다!")

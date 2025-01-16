@@ -14,12 +14,14 @@ interface GameState {
   players: Player[]
   currentRound: number
   currentPlayerIndex: number
+  defaultWinScore: number
   // Actions
   setStep: (step: Step) => void
   setPlayers: (names: string[]) => void
   addScore: (playerIndex: number, score: number) => void
   nextRound: () => void
   resetGame: () => void
+  setDefaultWinScore: (score: number) => void
 }
 
 const DIXIT_STORAGE_KEY = "dixit-game-storage"
@@ -31,7 +33,7 @@ export const useGameStore = create<GameState>()(
       players: [],
       currentRound: 1,
       currentPlayerIndex: 0,
-
+      defaultWinScore: 30,
       setStep: (step) => set({ step }),
 
       setPlayers: (names) => set({
@@ -66,8 +68,10 @@ export const useGameStore = create<GameState>()(
         step: "playerSetup",
         players: [],
         currentRound: 1,
-        currentPlayerIndex: 0
-      })
+        currentPlayerIndex: 0,
+        defaultWinScore: 30
+      }),
+      setDefaultWinScore: (score) => set({ defaultWinScore: score }),
     }),
     {
       name: DIXIT_STORAGE_KEY,
