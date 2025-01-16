@@ -24,7 +24,7 @@ import {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">플레이어</TableHead>
+                <TableHead className="w-[100px]	text-center">플레이어</TableHead>
                 {Array.from({ length: completedRounds }, (_, i) => (
                   <TableHead key={i} className="text-center w-[80px]">R{i + 1}</TableHead>
                 ))}
