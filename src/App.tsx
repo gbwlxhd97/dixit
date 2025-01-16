@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import './App.css'
 import { PlayerSetup } from './components/custom/PlayerSetup'
-import { GameStart } from './components/custom/GameStart'
+import { GameStart } from './components/custom/GameBoard'
 import { GameResult } from './components/custom/GameResult'
+import { useGameStore } from './stores/gameStore'
 
 function App() {
-  const [step, setStep] = useState<"playerSetup" | "gameStart" | "gameResult">("playerSetup")
+  const { step, setStep } = useGameStore()
 
   return (
     <main className="w-full flex items-center justify-center">

@@ -30,9 +30,9 @@ export function GameResult({ onNext }: IFunnelProps) {
         <div className="space-y-2">
           {players
             .sort((a, b) => b.totalScore - a.totalScore)
-            .map((player) => (
+            .map((player, index) => (
               <div key={player.name} className="flex justify-between items-center">
-                <span>{player.name}</span>
+                <span>{index + 1}위 {player.name}</span>
                 <span>{player.totalScore}점</span>
               </div>
             ))}

@@ -5,6 +5,9 @@ import { Button } from "../ui/button"
 import { IFunnelProps } from "@/interfaces/funnel"
 import { useState } from "react"
 import { toast } from "sonner"
+import { ScoreBoard } from "./ScoreBoard"
+
+const DEFAULT_WINNER_SCORE = 30
 
 export function GameStart({ onNext }: IFunnelProps) {
   const { 
@@ -37,11 +40,11 @@ export function GameStart({ onNext }: IFunnelProps) {
       }
     })
 
-    const hasWinner = updatedScores.some(score => score >= 30)
+    const hasWinner = updatedScores.some(score => score >= DEFAULT_WINNER_SCORE)
     
     if (hasWinner) {
       toast.success("게임이 종료되었습니다!")
-      onNext() // GameResult 컴포넌트로 전환
+      onNext()
       return
     }
 
@@ -86,39 +89,7 @@ export function GameStart({ onNext }: IFunnelProps) {
           </Button>
         </CardContent>
       </Card>
-
-{/* TODO: 총 점수판 추후 분리 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>점수판</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="text-left">플레이어</th>
-                  {Array.from({ length: currentRound }, (_, i) => (
-                    <th key={i} className="text-center">R{i + 1}</th>
-                  ))}
-                  <th className="text-right">총점</th>
-                </tr>
-              </thead>
-              <tbody>
-                {players.map((player) => (
-                  <tr key={player.name}>
-                    <td className="text-left">{player.name}</td>
-                    {player.scores.map((score, i) => (
-                      <td key={i} className="text-center">{score || "-"}</td>
-                    ))}
-                    <td className="text-right font-bold">{player.totalScore}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+			<ScoreBoard />
     </div>
   )
 }
