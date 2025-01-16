@@ -2,13 +2,15 @@ import { useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
+import { useGameStore } from "@/stores/gameStore"
 
 interface PlayerSetupProps {
-  onComplete: (players: string[]) => void
+  onComplete: () => void
 }
 
 export function PlayerSetup({ onComplete }: PlayerSetupProps) {
   const [playerNames, setPlayerNames] = useState<string[]>(["", "", "", ""])
+  const setPlayers = useGameStore(state => state.setPlayers)
   
   const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayers = [...playerNames]
@@ -19,7 +21,8 @@ export function PlayerSetup({ onComplete }: PlayerSetupProps) {
   const handleConfirm = () => {
     const validPlayers = playerNames.filter(name => name.trim() !== "")
     if (validPlayers.length >= 2) {
-      onComplete(validPlayers)
+      setPlayers(validPlayers)
+      onComplete()
     }
   }
 

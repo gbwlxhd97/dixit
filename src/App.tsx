@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { PlayerSetup } from './components/custom/PlayerSetup'
+import { GameStart } from './components/custom/GameStart'
 
 function App() {
   // TODO: 추후 hooks 형태로 분리
@@ -11,6 +12,7 @@ function App() {
       {
         step === "playerSetup" && <PlayerSetup onComplete={() => setStep("gameStart")} />
       }
+      {step === "gameStart" && <GameStart />}
     </main>
   )
 }
