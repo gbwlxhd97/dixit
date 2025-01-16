@@ -2,17 +2,16 @@ import { useState } from 'react'
 import './App.css'
 import { PlayerSetup } from './components/custom/PlayerSetup'
 import { GameStart } from './components/custom/GameStart'
+import { GameResult } from './components/custom/GameResult'
 
 function App() {
-  // TODO: 추후 hooks 형태로 분리
-  const [step, setStep] = useState<"playerSetup"  | "gameStart" | "gameEnd">("playerSetup")
+  const [step, setStep] = useState<"playerSetup" | "gameStart" | "gameResult">("playerSetup")
 
   return (
     <main className="w-full flex items-center justify-center">
-      {
-        step === "playerSetup" && <PlayerSetup onComplete={() => setStep("gameStart")} />
-      }
-      {step === "gameStart" && <GameStart />}
+      {step === "playerSetup" && <PlayerSetup onNext={() => setStep("gameStart")} />}
+      {step === "gameStart" && <GameStart onNext={() => setStep("gameResult")} />}
+      {step === "gameResult" && <GameResult onNext={() => setStep("playerSetup")} />}
     </main>
   )
 }

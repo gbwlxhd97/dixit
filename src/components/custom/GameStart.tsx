@@ -2,8 +2,11 @@ import { useGameStore } from "@/stores/gameStore"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { IFunnelProps } from "@/interfaces/funnel"
+import { useState } from "react"
+import { toast } from "sonner"
 
-export function GameStart() {
+export function GameStart({ onNext }: IFunnelProps) {
   const { 
     players, 
     currentRound, 
@@ -12,15 +15,45 @@ export function GameStart() {
     nextRound 
   } = useGameStore()
 
-  const handleScoreSubmit = (playerIndex: number, score: string) => {
-    const numberScore = parseInt(score, 10)
-    if (!isNaN(numberScore)) {
-      addScore(playerIndex, numberScore)
-    }
+  const [tempScores, setTempScores] = useState<{ [key: number]: string }>({})
+
+  const handleScoreChange = (playerIndex: number, score: string) => {
+    setTempScores(prev => ({
+      ...prev,
+      [playerIndex]: score
+    }))
   }
+
+  const handleNextRound = () => {
+    const updatedScores: number[] = []
+    
+    Object.entries(tempScores).forEach(([playerIndex, score]) => {
+      const numberScore = parseInt(score, 10)
+      if (!isNaN(numberScore)) {
+        addScore(parseInt(playerIndex), numberScore)
+        // 현재 플레이어의 총점 계산
+        const playerTotalScore = players[parseInt(playerIndex)].totalScore + numberScore
+        updatedScores[parseInt(playerIndex)] = playerTotalScore
+      }
+    })
+
+    const hasWinner = updatedScores.some(score => score >= 30)
+    
+    if (hasWinner) {
+      toast.success("게임이 종료되었습니다!")
+      onNext() // GameResult 컴포넌트로 전환
+      return
+    }
+
+    setTempScores({})
+    nextRound()
+  }
+
+  // 모든 플레이어가 점수를 입력했는지 확인
   const isAllScoresEntered = players.every(
-    player => player.scores.length >= currentRound
+    (_, index) => tempScores[index] !== undefined && tempScores[index] !== ""
   )
+
   return (
     <div className="space-y-6">
       <Card>
@@ -38,15 +71,15 @@ export function GameStart() {
                 <Input
                   type="number"
                   placeholder="점수 입력"
-                  onChange={(e) => handleScoreSubmit(index, e.target.value)}
-                  value={player.scores[currentRound - 1] || ""}
+                  onChange={(e) => handleScoreChange(index, e.target.value)}
+                  value={tempScores[index] || ""}
                 />
               </div>
             ))}
           </div>
           <Button 
             className="w-full mt-4" 
-            onClick={nextRound}
+            onClick={handleNextRound}
             disabled={!isAllScoresEntered}
           >
             다음 라운드
