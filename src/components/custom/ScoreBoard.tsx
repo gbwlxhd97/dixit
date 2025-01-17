@@ -8,6 +8,7 @@ import {
   } from "@/components/ui/table"
   import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
   import { useGameStore } from "@/stores/gameStore"
+import { GameSetup } from "./GameSetup"
   
   export function ScoreBoard() {
     const { players } = useGameStore()
@@ -19,7 +20,7 @@ import {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle>점수판</CardTitle>
-          {/* <GameSetup /> */}
+            <GameSetup />
         </CardHeader>
         <CardContent>
           <Table>

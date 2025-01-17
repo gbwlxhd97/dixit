@@ -11,9 +11,8 @@ import { useGameStore } from "@/stores/gameStore"
 import { Input } from "../ui/input"
 import { useState } from "react"
 import { toast } from "sonner"
-import { IFunnelProps } from "@/interfaces/funnel"
 
-export function GameSetup({ onNext }: IFunnelProps) {
+export function GameSetup() {
   const { resetGame, defaultWinScore, setDefaultWinScore } = useGameStore()
   const [tempWinScore, setTempWinScore] = useState(defaultWinScore.toString())
   const [open, setOpen] = useState(false)

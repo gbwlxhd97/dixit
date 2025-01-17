@@ -6,8 +6,9 @@ import { useGameStore } from "@/stores/gameStore"
 import { IFunnelProps } from "@/interfaces/funnel"
 
 export function GameSetup2({ onNext }: IFunnelProps) {
-  const { scoreSettings, setScoreSettings } = useGameStore()
+  const { scoreSettings, setScoreSettings, defaultWinScore, setDefaultWinScore } = useGameStore()
   const [tempSettings, setTempSettings] = useState(scoreSettings)
+  const [tempWinScore, setTempWinScore] = useState(defaultWinScore.toString())
 
   const handleSettingChange = (
     category: keyof typeof scoreSettings,
@@ -26,17 +27,38 @@ export function GameSetup2({ onNext }: IFunnelProps) {
     }
   }
 
+  const handleWinScoreChange = (value: string) => {
+    const numValue = parseInt(value)
+    if (!isNaN(numValue) && numValue > 0) {
+      setTempWinScore(value)
+    }
+  }
+
   const handleConfirm = () => {
     setScoreSettings(tempSettings)
+    setDefaultWinScore(parseInt(tempWinScore))
     onNext()
   }
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-center">점수 계산 설정</CardTitle>
+        <CardTitle className="text-center">게임 설정</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* 승리 조건 설정 추가 */}
+        <div className="space-y-2">
+          <h3 className="font-medium">승리 조건</h3>
+          <div className="flex gap-2 items-center">
+            <Input
+              type="number"
+              value={tempWinScore}
+              onChange={(e) => handleWinScoreChange(e.target.value)}
+            />
+            <span className="text-sm text-muted-foreground">점</span>
+          </div>
+        </div>
+
         {/* 모두 맞추거나 아무도 못 맞춘 경우 */}
         <div className="space-y-2">
           <h3 className="font-medium">모두 맞추거나 아무도 못 맞춘 경우</h3>
