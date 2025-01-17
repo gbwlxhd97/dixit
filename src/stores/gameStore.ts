@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 type Step = "onBoarding" | "playerSetup" | "gameSetup" | "gameStart" | "gameResult"
 
-interface Player {
+export interface Player {
   name: string
   scores: number[]
   totalScore: number

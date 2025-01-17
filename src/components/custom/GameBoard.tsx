@@ -6,7 +6,7 @@ import { IFunnelProps } from "@/interfaces/funnel"
 import { useState } from "react"
 import { toast } from "sonner"
 import { ScoreBoard } from "./ScoreBoard"
-import { ScoreCalculator } from "./ScoreCalculator"
+import { ScoreCalculator } from "@/components/custom/ScoreCalculator"
 
 export function GameStart({ onNext }: IFunnelProps) {
   const { 

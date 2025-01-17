@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -7,11 +7,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Label } from "../ui/label"
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { useGameStore } from "@/stores/gameStore"
 import { toast } from "sonner"
-import { Checkbox } from "../ui/checkbox"
+import { MainScoreSection } from "./MainScoreSection"
+import { CorrectPlayersSection } from "./CorrectPlayersSection"
+import { OtherCardsSection } from "./OtherCardsSection"
 
 interface Props {
   onScoreCalculated: (scores: { [key: number]: string }) => void
@@ -116,83 +116,28 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
           <DialogTitle>점수 계산</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label>메인 점수</Label>
-            <RadioGroup value={mainCase || ""} onValueChange={handleMainCaseSelect}>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="allCorrect" id="allCorrect" />
-                <Label htmlFor="allCorrect">모두 맞추거나 아무도 못 맞춤</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="someCorrect" id="someCorrect" />
-                <Label htmlFor="someCorrect">일부만 맞춤</Label>
-              </div>
-            </RadioGroup>
-          </div>
-
+          <MainScoreSection 
+            mainCase={mainCase}
+            onMainCaseSelect={handleMainCaseSelect}
+          />
+          
           {mainCase === "someCorrect" && (
-            <div className="space-y-2">
-              <Label>맞춘 플레이어 선택</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {players.map((player, index) => (
-                  index !== currentPlayerIndex && (
-                    <Button
-                      key={index}
-                      variant={correctPlayers.includes(index) ? "default" : "outline"}
-                      onClick={() => handlePlayerToggle(index)}
-                      size="sm"
-                    >
-                      {player.name}
-                    </Button>
-                  )
-                ))}
-              </div>
-            </div>
+            <CorrectPlayersSection 
+              players={players}
+              currentPlayerIndex={currentPlayerIndex}
+              correctPlayers={correctPlayers}
+              onPlayerToggle={handlePlayerToggle}
+            />
           )}
 
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="otherCards"
-                checked={isOtherCardsFound}
-                onCheckedChange={(checked) => setIsOtherCardsFound(checked as boolean)}
-              />
-              <Label htmlFor="otherCards">다른 플레이어 카드 맞춤</Label>
-            </div>
-          </div>
-
-          {isOtherCardsFound && (
-            <div className="space-y-2">
-              <Label>카드를 맞춘 경우 선택</Label>
-              <div className="grid gap-4">
-                {players.map((finder, finderIndex) => (
-                  finderIndex !== currentPlayerIndex && (
-                    <div key={finderIndex} className="space-y-2">
-                      <Label>{finder.name}이(가) 맞춘 카드:</Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {players.map((owner, ownerIndex) => (
-                          ownerIndex !== currentPlayerIndex && ownerIndex !== finderIndex && (
-                            <Button
-                              key={ownerIndex}
-                              variant={foundCards[finderIndex]?.[0] === ownerIndex ? "default" : "outline"}
-                              onClick={() => {
-                                const newFoundCards = { ...foundCards };
-                                newFoundCards[finderIndex] = [ownerIndex];
-                                setFoundCards(newFoundCards);
-                              }}
-                              size="sm"
-                            >
-                              {owner.name}
-                            </Button>
-                          )
-                        ))}
-                      </div>
-                    </div>
-                  )
-                ))}
-              </div>
-            </div>
-          )}
+          <OtherCardsSection 
+            players={players}
+            currentPlayerIndex={currentPlayerIndex}
+            isOtherCardsFound={isOtherCardsFound}
+            foundCards={foundCards}
+            onOtherCardsChange={setIsOtherCardsFound}
+            onFoundCardsChange={handleFoundCardToggle}
+          />
 
           <Button 
             className="w-full" 
@@ -208,4 +153,4 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
       </DialogContent>
     </Dialog>
   )
-} 
+}
