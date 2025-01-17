@@ -70,7 +70,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           <span className="text-sm text-muted-foreground">점</span>
         </div>
       </div>
-
+      {/* TODO 컴포넌트 분리하기 */}
       <div className="space-y-2">
         <h3 className="font-medium">모두 맞추거나 아무도 못 맞춘 경우</h3>
         <div className="grid grid-cols-2 gap-4">

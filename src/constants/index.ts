@@ -27,5 +27,4 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
 ]
 
-
 export const MIN_PLAYERS_COUNT = 4

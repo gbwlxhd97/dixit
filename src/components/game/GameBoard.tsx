@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { IFunnelProps } from '@/interfaces/funnel'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { ScoreBoard } from './ScoreBoard'
+import { ScoreBoard } from '../score/ScoreBoard'
 import { ScoreCalculator } from '@/components/calculator'
 
 export function GameStart({ onNext }: IFunnelProps) {
@@ -76,7 +76,7 @@ export function GameStart({ onNext }: IFunnelProps) {
             ))}
             <ScoreCalculator onScoreCalculated={setTempScores} />
             <Button className="w-full" onClick={handleNextRound} disabled={!isAllScoresEntered}>
-              다음 라운드
+              라운드 종료
             </Button>
           </div>
         </CardContent>

@@ -7,8 +7,8 @@ import { IFunnelProps } from '@/interfaces/funnel'
 import { MIN_PLAYERS_COUNT } from '@/constants'
 
 export function PlayerSetup({ onNext }: IFunnelProps) {
-  const [playerNames, setPlayerNames] = useState<string[]>(['', '', '', ''])
-  const setPlayers = useGameStore(state => state.setPlayers)
+  const [playerNames, setPlayerNames] = useState<string[]>(['', '', '', '']) // 4명 기본 설정
+  const { setPlayers } = useGameStore()
 
   const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayers = [...playerNames]

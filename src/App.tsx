@@ -1,10 +1,10 @@
 import './App.css'
 import { PlayerSetup } from './components/custom/PlayerSetup'
-import { GameStart } from './components/custom/GameBoard'
-import { GameResult } from './components/custom/GameResult'
+import { GameStart } from './components/game/GameBoard'
+import { GameResult } from './components/game/GameResult'
 import { useGameStore } from './stores/gameStore'
-import { OnBoarding } from './components/custom/OnBoarding'
-import { GameSetup } from './components/custom/GameSetup'
+import { OnBoarding } from './components/onBoarding'
+import { GameSetup } from './components/game/GameSetup'
 
 function App() {
   const { step, setStep } = useGameStore()

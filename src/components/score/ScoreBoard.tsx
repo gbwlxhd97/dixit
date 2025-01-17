@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { useGameStore } from '@/stores/gameStore'
-import { GameSetup } from './GameSetup'
+import { GameSetup } from '../game/GameSetup'
 
 export function ScoreBoard() {
   const { players } = useGameStore()
@@ -30,7 +30,7 @@ export function ScoreBoard() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]	text-center">순위</TableHead>
-              {displayRounds.map((round, i) => (
+              {displayRounds.map((_, i) => (
                 <TableHead key={i} className="text-center w-[80px]">
                   {`R${i + 1}`}
                 </TableHead>
