@@ -34,7 +34,7 @@ export function GameResult({ onNext }: IFunnelProps) {
         <div className="space-y-2">
           {players
             .sort((a, b) => b.totalScore - a.totalScore)
-            .map((player, index, sortedPlayers) => {
+            .map((player, _, sortedPlayers) => {
               // 동점자 처리를 위한 순위 계산
               const currentRank = sortedPlayers.findIndex(
                 p => p.totalScore === player.totalScore

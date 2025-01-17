@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
 type Step = "onBoarding" | "playerSetup" | "gameSetup" | "gameStart" | "gameResult"
 
@@ -31,8 +30,6 @@ interface GameState {
   setDefaultWinScore: (score: number) => void
   setScoreSettings: (settings: ScoreSettings) => void
 }
-
-const DIXIT_STORAGE_KEY = "dixit-game-storage"
 
 export const useGameStore = create<GameState>()(
   // persist(

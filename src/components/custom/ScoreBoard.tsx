@@ -20,7 +20,7 @@ import { GameSetup } from "./GameSetup"
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle>점수판</CardTitle>
-            <GameSetup />
+          <GameSetup variant="dialog" />
         </CardHeader>
         <CardContent>
           <Table>
