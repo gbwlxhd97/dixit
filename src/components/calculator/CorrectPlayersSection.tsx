@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Player } from '@/stores/gameStore' // Player 타입 정의 필요
+import { Player } from '@/interfaces/game'
 
 interface CorrectPlayersSectionProps {
   players: Player[]

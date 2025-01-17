@@ -26,6 +26,7 @@ export function PlayerSetup({ onNext }: IFunnelProps) {
   return (
     <Card>
       <CardHeader>
+        {/* TODO: 랜더링 되자마자 useRef로 Input focus 하기 */}
         <CardTitle className="text-center">플레이어 등록</CardTitle>
       </CardHeader>
       <CardContent>
