@@ -35,7 +35,6 @@ export function SettingGame() {
     resetGame()
     toast.success("게임이 초기화되었습니다!")
     setOpen(false)
-    window.location.reload()
   }
 
   return (

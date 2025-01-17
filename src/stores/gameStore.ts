@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-type Step = "playerSetup" | "gameStart" | "gameResult"
+type Step = "onBoarding" | "playerSetup" | "gameSetup" | "gameStart" | "gameResult"
 
 interface Player {
   name: string
@@ -27,9 +27,9 @@ interface GameState {
 const DIXIT_STORAGE_KEY = "dixit-game-storage"
 
 export const useGameStore = create<GameState>()(
-  persist(
+  // persist(
     (set) => ({
-      step: "playerSetup",
+      step: "onBoarding",
       players: [],
       currentRound: 1,
       currentPlayerIndex: 0,
@@ -65,7 +65,7 @@ export const useGameStore = create<GameState>()(
       })),
 
       resetGame: () => set({
-        step: "playerSetup",
+        step: "onBoarding",
         players: [],
         currentRound: 1,
         currentPlayerIndex: 0,
@@ -73,9 +73,9 @@ export const useGameStore = create<GameState>()(
       }),
       setDefaultWinScore: (score) => set({ defaultWinScore: score }),
     }),
-    {
-      name: DIXIT_STORAGE_KEY,
-      version: 1,
-    }
-  )
+    // {
+    //   name: DIXIT_STORAGE_KEY,
+    //   version: 1,
+    // }
+  // )
 )

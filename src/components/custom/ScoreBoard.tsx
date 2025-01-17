@@ -8,19 +8,10 @@ import {
   } from "@/components/ui/table"
   import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
   import { useGameStore } from "@/stores/gameStore"
-  import { Settings } from "lucide-react"
-  import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
-  import { Button } from "../ui/button"
 import { SettingGame } from "./GameSetup"
   
   export function ScoreBoard() {
-    const { players, currentRound, resetGame } = useGameStore()
+    const { players } = useGameStore()
   
     // 실제로 점수가 입력된 라운드 수 계산
     const completedRounds = Math.max(...players.map(player => player.scores.length))
