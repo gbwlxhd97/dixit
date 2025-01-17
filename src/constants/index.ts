@@ -26,3 +26,6 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     description: '언제 어디서나 휴대폰으로 편리하게 이용하실 수 있습니다.',
   },
 ]
+
+
+export const MIN_PLAYERS_COUNT = 4

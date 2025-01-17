@@ -4,6 +4,7 @@ import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { useGameStore } from '@/stores/gameStore'
 import { IFunnelProps } from '@/interfaces/funnel'
+import { MIN_PLAYERS_COUNT } from '@/constants'
 
 export function PlayerSetup({ onNext }: IFunnelProps) {
   const [playerNames, setPlayerNames] = useState<string[]>(['', '', '', ''])
@@ -15,9 +16,9 @@ export function PlayerSetup({ onNext }: IFunnelProps) {
     setPlayerNames(newPlayers)
   }
 
+  const validPlayers = playerNames.filter(name => name.trim() !== '')
   const handleConfirm = () => {
-    const validPlayers = playerNames.filter(name => name.trim() !== '')
-    if (validPlayers.length >= 2) {
+    if (validPlayers.length >= MIN_PLAYERS_COUNT) {
       setPlayers(validPlayers)
       onNext()
     }
@@ -42,7 +43,7 @@ export function PlayerSetup({ onNext }: IFunnelProps) {
           <Button
             className="w-full mt-4"
             onClick={handleConfirm}
-            disabled={playerNames.filter(name => name.trim() !== '').length !== 4}
+            disabled={validPlayers.length < MIN_PLAYERS_COUNT}
           >
             게임 시작
           </Button>

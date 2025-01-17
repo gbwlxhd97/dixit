@@ -18,6 +18,7 @@ export function ScoreBoard() {
 
   // 표시할 점수 배열 계산 undefined 방지
   const displayScores = players.map(player => player.scores.slice(0, completedRounds))
+  const displayRounds = Array.from({ length: completedRounds })
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
@@ -29,9 +30,9 @@ export function ScoreBoard() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]	text-center">순위</TableHead>
-              {Array.from({ length: completedRounds }, (_, i) => (
+              {displayRounds.map((round, i) => (
                 <TableHead key={i} className="text-center w-[80px]">
-                  R{i + 1}
+                  {`R${i + 1}`}
                 </TableHead>
               ))}
               <TableHead className="text-center w-[80px]">총점</TableHead>
