@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-type Step = "onBoarding" | "playerSetup" | "gameSetup" | "gameStart" | "gameResult"
+type Step = 'onBoarding' | 'playerSetup' | 'gameSetup' | 'gameStart' | 'gameResult'
 
 export interface Player {
   name: string
@@ -9,9 +9,9 @@ export interface Player {
 }
 
 interface ScoreSettings {
-  allCorrect: { storyteller: number; others: number };
-  someCorrect: { storyteller: number; correct: number };
-  findOthers: { finder: number; owner: number };
+  allCorrect: { storyteller: number; others: number }
+  someCorrect: { storyteller: number; correct: number }
+  findOthers: { finder: number; owner: number }
 }
 
 interface GameState {
@@ -33,60 +33,67 @@ interface GameState {
 
 export const useGameStore = create<GameState>()(
   // persist(
-    (set) => ({
-      step: "onBoarding",
-      players: [],
-      currentRound: 1,
-      currentPlayerIndex: 0,
-      defaultWinScore: 30,
-      scoreSettings: {
-        allCorrect: { storyteller: 0, others: 2 },
-        someCorrect: { storyteller: 3, correct: 3 },
-        findOthers: { finder: 0, owner: 1 }
-      },
-      setStep: (step) => set({ step }),
+  set => ({
+    step: 'onBoarding',
+    players: [],
+    currentRound: 1,
+    currentPlayerIndex: 0,
+    defaultWinScore: 30,
+    scoreSettings: {
+      allCorrect: { storyteller: 0, others: 2 },
+      someCorrect: { storyteller: 3, correct: 3 },
+      findOthers: { finder: 0, owner: 1 },
+    },
+    setStep: step => set({ step }),
 
-      setPlayers: (names) => set({
+    setPlayers: names =>
+      set({
         players: names.map(name => ({
           name,
           scores: [],
-          totalScore: 0
-        }))
+          totalScore: 0,
+        })),
       }),
 
-      addScore: (playerIndex, score) => set((state) => {
+    addScore: (playerIndex, score) =>
+      set(state => {
         const newPlayers = [...state.players]
         newPlayers[playerIndex] = {
           ...newPlayers[playerIndex],
           scores: [
             ...newPlayers[playerIndex].scores.slice(0, state.currentRound - 1),
             score,
-            ...newPlayers[playerIndex].scores.slice(state.currentRound)
-          ]
+            ...newPlayers[playerIndex].scores.slice(state.currentRound),
+          ],
         }
-        newPlayers[playerIndex].totalScore = newPlayers[playerIndex].scores.reduce((a, b) => a + b, 0)
-        
+        newPlayers[playerIndex].totalScore = newPlayers[playerIndex].scores.reduce(
+          (a, b) => a + b,
+          0
+        )
+
         return { players: newPlayers }
       }),
 
-      nextRound: () => set((state) => ({
+    nextRound: () =>
+      set(state => ({
         currentRound: state.currentRound + 1,
-        currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length
+        currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
       })),
 
-      resetGame: () => set({
-        step: "onBoarding",
+    resetGame: () =>
+      set({
+        step: 'onBoarding',
         players: [],
         currentRound: 1,
         currentPlayerIndex: 0,
-        defaultWinScore: 30
+        defaultWinScore: 30,
       }),
-      setDefaultWinScore: (score) => set({ defaultWinScore: score }),
-      setScoreSettings: (settings) => set({ scoreSettings: settings }),
-    }),
-    // {
-    //   name: DIXIT_STORAGE_KEY,
-    //   version: 1,
-    // }
+    setDefaultWinScore: score => set({ defaultWinScore: score }),
+    setScoreSettings: settings => set({ scoreSettings: settings }),
+  })
+  // {
+  //   name: DIXIT_STORAGE_KEY,
+  //   version: 1,
+  // }
   // )
 )

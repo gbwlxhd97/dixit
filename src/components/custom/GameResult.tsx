@@ -1,14 +1,14 @@
-import { useGameStore } from "@/stores/gameStore"
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { Button } from "../ui/button"
-import { IFunnelProps } from "@/interfaces/funnel"
+import { useGameStore } from '@/stores/gameStore'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import { Button } from '../ui/button'
+import { IFunnelProps } from '@/interfaces/funnel'
 
 export function GameResult({ onNext }: IFunnelProps) {
   const { players, resetGame } = useGameStore()
-  
+
   // 최고 점수 찾기
   const highestScore = Math.max(...players.map(player => player.totalScore))
-  
+
   // 공동 우승자 찾기
   const winners = players.filter(player => player.totalScore === highestScore)
   const isCoWinner = winners.length > 1
@@ -30,19 +30,20 @@ export function GameResult({ onNext }: IFunnelProps) {
           </h3>
           <p className="text-muted-foreground">총점: {highestScore}점</p>
         </div>
-        
+
         <div className="space-y-2">
           {players
             .sort((a, b) => b.totalScore - a.totalScore)
             .map((player, _, sortedPlayers) => {
               // 동점자 처리를 위한 순위 계산
-              const currentRank = sortedPlayers.findIndex(
-                p => p.totalScore === player.totalScore
-              ) + 1
-              
+              const currentRank =
+                sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
+
               return (
                 <div key={player.name} className="flex justify-between items-center">
-                  <span>{currentRank}위 {player.name}</span>
+                  <span>
+                    {currentRank}위 {player.name}
+                  </span>
                   <span>{player.totalScore}점</span>
                 </div>
               )

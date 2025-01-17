@@ -1,3 +1,3 @@
 export interface IFunnelProps {
-  onNext: () => void;
+  onNext: () => void
 }

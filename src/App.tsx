@@ -6,17 +6,16 @@ import { useGameStore } from './stores/gameStore'
 import { OnBoarding } from './components/custom/OnBoarding'
 import { GameSetup } from './components/custom/GameSetup'
 
-
 function App() {
   const { step, setStep } = useGameStore()
 
   return (
     <main className="w-full flex items-center justify-center">
-      {step === "onBoarding" && <OnBoarding onNext={() => setStep("playerSetup")} />}
-      {step === "playerSetup" && <PlayerSetup onNext={() => setStep("gameSetup")} />}
-      {step === "gameSetup" && <GameSetup onNext={() => setStep("gameStart")} variant="page" />}
-      {step === "gameStart" && <GameStart onNext={() => setStep("gameResult")} />}
-      {step === "gameResult" && <GameResult onNext={() => setStep("playerSetup")} />}
+      {step === 'onBoarding' && <OnBoarding onNext={() => setStep('playerSetup')} />}
+      {step === 'playerSetup' && <PlayerSetup onNext={() => setStep('gameSetup')} />}
+      {step === 'gameSetup' && <GameSetup onNext={() => setStep('gameStart')} variant="page" />}
+      {step === 'gameStart' && <GameStart onNext={() => setStep('gameResult')} />}
+      {step === 'gameResult' && <GameResult onNext={() => setStep('playerSetup')} />}
     </main>
   )
 }

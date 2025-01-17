@@ -1,17 +1,17 @@
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { useGameStore } from "@/stores/gameStore"
-import { Settings } from "lucide-react"
-import { IFunnelProps } from "@/interfaces/funnel"
+import { useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { useGameStore } from '@/stores/gameStore'
+import { Settings } from 'lucide-react'
+import { IFunnelProps } from '@/interfaces/funnel'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 
 interface GameSetupProps extends Partial<IFunnelProps> {
   variant?: 'dialog' | 'page'
@@ -34,8 +34,8 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
         ...prev,
         [category]: {
           ...prev[category],
-          [field]: numValue
-        }
+          [field]: numValue,
+        },
       }))
     }
   }
@@ -65,7 +65,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           <Input
             type="number"
             value={tempWinScore}
-            onChange={(e) => handleWinScoreChange(e.target.value)}
+            onChange={e => handleWinScoreChange(e.target.value)}
           />
           <span className="text-sm text-muted-foreground">점</span>
         </div>
@@ -79,7 +79,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.allCorrect.storyteller}
-              onChange={(e) => handleSettingChange('allCorrect', 'storyteller', e.target.value)}
+              onChange={e => handleSettingChange('allCorrect', 'storyteller', e.target.value)}
             />
           </div>
           <div className="space-y-1">
@@ -87,7 +87,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.allCorrect.others}
-              onChange={(e) => handleSettingChange('allCorrect', 'others', e.target.value)}
+              onChange={e => handleSettingChange('allCorrect', 'others', e.target.value)}
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.someCorrect.storyteller}
-              onChange={(e) => handleSettingChange('someCorrect', 'storyteller', e.target.value)}
+              onChange={e => handleSettingChange('someCorrect', 'storyteller', e.target.value)}
             />
           </div>
           <div className="space-y-1">
@@ -109,7 +109,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.someCorrect.correct}
-              onChange={(e) => handleSettingChange('someCorrect', 'correct', e.target.value)}
+              onChange={e => handleSettingChange('someCorrect', 'correct', e.target.value)}
             />
           </div>
         </div>
@@ -123,7 +123,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.findOthers.finder}
-              onChange={(e) => handleSettingChange('findOthers', 'finder', e.target.value)}
+              onChange={e => handleSettingChange('findOthers', 'finder', e.target.value)}
             />
           </div>
           <div className="space-y-1">
@@ -131,18 +131,14 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
             <Input
               type="number"
               value={tempSettings.findOthers.owner}
-              onChange={(e) => handleSettingChange('findOthers', 'owner', e.target.value)}
+              onChange={e => handleSettingChange('findOthers', 'owner', e.target.value)}
             />
           </div>
         </div>
       </div>
 
       <div className="flex gap-4">
-        <Button
-          variant="outline"
-          className="flex-1"
-          onClick={() => setTempSettings(scoreSettings)}
-        >
+        <Button variant="outline" className="flex-1" onClick={() => setTempSettings(scoreSettings)}>
           기본값으로 초기화
         </Button>
         <Button className="flex-1" onClick={handleConfirm}>
@@ -164,9 +160,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           <DialogHeader>
             <DialogTitle>게임 설정</DialogTitle>
           </DialogHeader>
-          <CardContent>
-            {content}
-          </CardContent>
+          <CardContent>{content}</CardContent>
         </DialogContent>
       </Dialog>
     )
@@ -177,9 +171,7 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
       <CardHeader>
         <CardTitle className="text-center">게임 설정</CardTitle>
       </CardHeader>
-      <CardContent>
-        {content}
-      </CardContent>
+      <CardContent>{content}</CardContent>
     </Card>
   )
-} 
+}

@@ -1,17 +1,17 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { useGameStore } from "@/stores/gameStore"
-import { toast } from "sonner"
-import { MainScoreSection } from "./MainScoreSection"
-import { CorrectPlayersSection } from "./CorrectPlayersSection"
-import { OtherCardsSection } from "./OtherCardsSection"
+} from '@/components/ui/dialog'
+import { useGameStore } from '@/stores/gameStore'
+import { toast } from 'sonner'
+import { MainScoreSection } from './MainScoreSection'
+import { CorrectPlayersSection } from './CorrectPlayersSection'
+import { OtherCardsSection } from './OtherCardsSection'
 
 interface Props {
   onScoreCalculated: (scores: { [key: number]: string }) => void
@@ -19,22 +19,20 @@ interface Props {
 
 export function ScoreCalculator({ onScoreCalculated }: Props) {
   const { players, currentPlayerIndex, scoreSettings } = useGameStore()
-  const [mainCase, setMainCase] = useState<"allCorrect" | "someCorrect" | null>(null)
+  const [mainCase, setMainCase] = useState<'allCorrect' | 'someCorrect' | null>(null)
   const [isOtherCardsFound, setIsOtherCardsFound] = useState(false)
   const [correctPlayers, setCorrectPlayers] = useState<number[]>([])
-  const [foundCards, setFoundCards] = useState<{[key: number]: number[]}>({})
+  const [foundCards, setFoundCards] = useState<{ [key: number]: number[] }>({})
   const [open, setOpen] = useState(false)
 
   const handleMainCaseSelect = (value: string) => {
-    setMainCase(value as "allCorrect" | "someCorrect")
+    setMainCase(value as 'allCorrect' | 'someCorrect')
     setCorrectPlayers([])
   }
 
   const handlePlayerToggle = (playerIndex: number) => {
-    setCorrectPlayers(prev => 
-      prev.includes(playerIndex)
-        ? prev.filter(p => p !== playerIndex)
-        : [...prev, playerIndex]
+    setCorrectPlayers(prev =>
+      prev.includes(playerIndex) ? prev.filter(p => p !== playerIndex) : [...prev, playerIndex]
     )
   }
 
@@ -45,7 +43,7 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
         ...prev,
         [finderIndex]: finderCards.includes(ownerIndex)
           ? finderCards.filter(o => o !== ownerIndex)
-          : [...finderCards, ownerIndex]
+          : [...finderCards, ownerIndex],
       }
     })
   }
@@ -59,21 +57,21 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
 
   const calculateScores = () => {
     const scores: { [key: number]: number } = {}
-    
+
     // 초기화
     players.forEach((_, index) => {
       scores[index] = 0
     })
 
     // 메인 케이스 점수 계산
-    if (mainCase === "allCorrect") {
+    if (mainCase === 'allCorrect') {
       scores[currentPlayerIndex] = scoreSettings.allCorrect.storyteller
       players.forEach((_, index) => {
         if (index !== currentPlayerIndex) {
           scores[index] = scoreSettings.allCorrect.others
         }
       })
-    } else if (mainCase === "someCorrect") {
+    } else if (mainCase === 'someCorrect') {
       scores[currentPlayerIndex] = scoreSettings.someCorrect.storyteller
       correctPlayers.forEach(playerIndex => {
         scores[playerIndex] = scoreSettings.someCorrect.correct
@@ -95,13 +93,13 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
     onScoreCalculated(stringScores)
     setOpen(false)
     resetState()
-    toast.success("점수가 계산되었습니다!")
+    toast.success('점수가 계산되었습니다!')
   }
 
   return (
-    <Dialog 
-      open={open} 
-      onOpenChange={(isOpen) => {
+    <Dialog
+      open={open}
+      onOpenChange={isOpen => {
         setOpen(isOpen)
         if (!isOpen) {
           resetState()
@@ -109,20 +107,19 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full">점수 계산하기</Button>
+        <Button variant="outline" className="w-full">
+          점수 계산하기
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>점수 계산</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <MainScoreSection 
-            mainCase={mainCase}
-            onMainCaseSelect={handleMainCaseSelect}
-          />
-          
-          {mainCase === "someCorrect" && (
-            <CorrectPlayersSection 
+          <MainScoreSection mainCase={mainCase} onMainCaseSelect={handleMainCaseSelect} />
+
+          {mainCase === 'someCorrect' && (
+            <CorrectPlayersSection
               players={players}
               currentPlayerIndex={currentPlayerIndex}
               correctPlayers={correctPlayers}
@@ -130,7 +127,7 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
             />
           )}
 
-          <OtherCardsSection 
+          <OtherCardsSection
             players={players}
             currentPlayerIndex={currentPlayerIndex}
             isOtherCardsFound={isOtherCardsFound}
@@ -139,11 +136,12 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
             onFoundCardsChange={handleFoundCardToggle}
           />
 
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             onClick={calculateScores}
-            disabled={!mainCase || 
-              (mainCase === "someCorrect" && correctPlayers.length === 0) ||
+            disabled={
+              !mainCase ||
+              (mainCase === 'someCorrect' && correctPlayers.length === 0) ||
               (isOtherCardsFound && Object.keys(foundCards).length === 0)
             }
           >

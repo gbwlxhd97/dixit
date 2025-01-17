@@ -11,11 +11,11 @@ interface GameSettings {
   setMaxRounds: (rounds: number) => void
 }
 
-export const useGameSettingsStore = create<GameSettings>((set) => ({
+export const useGameSettingsStore = create<GameSettings>(set => ({
   winCondition: 'score',
   targetScore: 500,
   maxRounds: 10,
-  setWinCondition: (condition) => set({ winCondition: condition }),
-  setTargetScore: (score) => set({ targetScore: score }),
-  setMaxRounds: (rounds) => set({ maxRounds: rounds }),
-})) 
+  setWinCondition: condition => set({ winCondition: condition }),
+  setTargetScore: score => set({ targetScore: score }),
+  setMaxRounds: rounds => set({ maxRounds: rounds }),
+}))
