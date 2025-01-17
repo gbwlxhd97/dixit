@@ -9,12 +9,19 @@ interface Player {
   totalScore: number
 }
 
+interface ScoreSettings {
+  allCorrect: { storyteller: number; others: number };
+  someCorrect: { storyteller: number; correct: number };
+  findOthers: { finder: number; owner: number };
+}
+
 interface GameState {
   step: Step
   players: Player[]
   currentRound: number
   currentPlayerIndex: number
   defaultWinScore: number
+  scoreSettings: ScoreSettings
   // Actions
   setStep: (step: Step) => void
   setPlayers: (names: string[]) => void
@@ -22,6 +29,7 @@ interface GameState {
   nextRound: () => void
   resetGame: () => void
   setDefaultWinScore: (score: number) => void
+  setScoreSettings: (settings: ScoreSettings) => void
 }
 
 const DIXIT_STORAGE_KEY = "dixit-game-storage"
@@ -34,6 +42,11 @@ export const useGameStore = create<GameState>()(
       currentRound: 1,
       currentPlayerIndex: 0,
       defaultWinScore: 30,
+      scoreSettings: {
+        allCorrect: { storyteller: 0, others: 2 },
+        someCorrect: { storyteller: 3, correct: 3 },
+        findOthers: { finder: 0, owner: 1 }
+      },
       setStep: (step) => set({ step }),
 
       setPlayers: (names) => set({
@@ -72,6 +85,7 @@ export const useGameStore = create<GameState>()(
         defaultWinScore: 30
       }),
       setDefaultWinScore: (score) => set({ defaultWinScore: score }),
+      setScoreSettings: (settings) => set({ scoreSettings: settings }),
     }),
     // {
     //   name: DIXIT_STORAGE_KEY,

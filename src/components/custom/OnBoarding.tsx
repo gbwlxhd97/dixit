@@ -80,7 +80,7 @@ export function OnBoarding({ onNext }: IFunnelProps) {
         {/* 스킵 버튼 추가 */}
         <div
           onClick={onNext}
-          className="absolute bottom-2 right-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          className="text-right text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           스킵하기
         </div>
