@@ -1,30 +1,30 @@
 type Step = 'onBoarding' | 'playerSetup' | 'gameSetup' | 'gameStart' | 'gameResult'
 
-export interface Player {
+export interface IPlayer {
   name: string
   scores: number[]
   totalScore: number
 }
 
-export interface ScoreSettings {
+export interface IScoreSettings {
   allCorrect: { storyteller: number; others: number }
   someCorrect: { storyteller: number; correct: number }
   findOthers: { finder: number; owner: number }
 }
 
-export interface GameState {
+export interface IGameState {
   step: Step
-  players: Player[]
+  players: IPlayer[]
   currentRound: number
   currentPlayerIndex: number
   defaultWinScore: number
-  scoreSettings: ScoreSettings
-    // Actions
-    setStep: (step: Step) => void
-    setPlayers: (names: string[]) => void
-    addScore: (playerIndex: number, score: number) => void
-    nextRound: () => void
-    resetGame: () => void
-    setDefaultWinScore: (score: number) => void
-    setScoreSettings: (settings: ScoreSettings) => void
-  }
+  scoreSettings: IScoreSettings
+  // Actions
+  setStep: (step: Step) => void
+  setPlayers: (names: string[]) => void
+  addScore: (playerIndex: number, score: number) => void
+  nextRound: () => void
+  resetGame: () => void
+  setDefaultWinScore: (score: number) => void
+  setScoreSettings: (settings: IScoreSettings) => void
+}

@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Player } from '@/interfaces/game'
+import { IPlayer } from '@/interfaces/game'
 
 interface CorrectPlayersSectionProps {
-  players: Player[]
+  players: IPlayer[]
   currentPlayerIndex: number
   correctPlayers: number[]
   onPlayerToggle: (playerIndex: number) => void

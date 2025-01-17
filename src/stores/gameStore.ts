@@ -1,7 +1,7 @@
-import { GameState } from '@/interfaces/game'
+import { IGameState } from '@/interfaces/game'
 import { create } from 'zustand'
 
-export const useGameStore = create<GameState>()(
+export const useGameStore = create<IGameState>()(
   // persist(
   set => ({
     step: 'onBoarding',
