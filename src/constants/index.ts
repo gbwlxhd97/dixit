@@ -5,7 +5,7 @@ interface OnboardingStep {
 
 export const ONBOARDING_STEPS: OnboardingStep[] = [
   {
-    title: "딕싯 점수판에 오신 것을 환영합니다! 👋",
+    title: "Dixit 점수판에 오신 것을 환영합니다! 👋",
       description: "게임을 더 재미있게 즐기실 수 있도록 도와드리겠습니다."
     },
     {
@@ -18,7 +18,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     },
     {
       title: "유연한 승리 조건",
-      description: "기본 승리 점수는 30점이지만, 원하는 대로 변경할 수 있습니다."
+      description: "기본 승리 점수는 30점이지만, 원하는 대로 변경할 수 있습니다.\n 추가적으로 조건별 획득 점수를 조정할 수 있습니다."
     },
     {
       title: "모바일 친화적",

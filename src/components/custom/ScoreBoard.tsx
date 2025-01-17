@@ -8,7 +8,6 @@ import {
   } from "@/components/ui/table"
   import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
   import { useGameStore } from "@/stores/gameStore"
-import { GameSetup } from "./GameSetup"
   
   export function ScoreBoard() {
     const { players } = useGameStore()
@@ -26,7 +25,7 @@ import { GameSetup } from "./GameSetup"
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]	text-center">플레이어</TableHead>
+                <TableHead className="w-[100px]	text-center">순위</TableHead>
                 {Array.from({ length: completedRounds }, (_, i) => (
                   <TableHead key={i} className="text-center w-[80px]">R{i + 1}</TableHead>
                 ))}
