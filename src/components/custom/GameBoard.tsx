@@ -6,6 +6,7 @@ import { IFunnelProps } from "@/interfaces/funnel"
 import { useState } from "react"
 import { toast } from "sonner"
 import { ScoreBoard } from "./ScoreBoard"
+import { ScoreCalculator } from "./ScoreCalculator"
 
 export function GameStart({ onNext }: IFunnelProps) {
   const { 
@@ -64,28 +65,30 @@ export function GameStart({ onNext }: IFunnelProps) {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-4">
-            현재 이야기꾼: {players[currentPlayerIndex]?.name}
+            현재 이야기꾼: <span className="font-bold">{players[currentPlayerIndex]?.name}</span>
           </p>
           <div className="grid grid-cols-1 gap-4">
-            {players.map((player, index) => (
-              <div key={player.name} className="flex items-center gap-4">
-                <span className="min-w-24">{player.name}</span>
-                <Input
-                  type="number"
-                  placeholder="점수 입력"
-                  onChange={(e) => handleScoreChange(index, e.target.value)}
-                  value={tempScores[index] || ""}
-                />
-              </div>
-            ))}
-          </div>
-          <Button 
-            className="w-full mt-4" 
-            onClick={handleNextRound}
-            disabled={!isAllScoresEntered}
-          >
-            다음 라운드
-          </Button>
+  {players.map((player, index) => (
+    <div key={player.name} className="flex items-center gap-4">
+      <span className="min-w-24">{player.name}</span>
+      <Input
+        type="number"
+        placeholder="점수"
+        disabled
+        onChange={(e) => handleScoreChange(index, e.target.value)}
+        value={tempScores[index] || ""}
+      />
+    </div>
+  ))}
+  <ScoreCalculator onScoreCalculated={setTempScores} />
+  <Button 
+    className="w-full" 
+    onClick={handleNextRound}
+    disabled={!isAllScoresEntered}
+  >
+    다음 라운드
+  </Button>
+</div>
         </CardContent>
       </Card>
 			<ScoreBoard />
