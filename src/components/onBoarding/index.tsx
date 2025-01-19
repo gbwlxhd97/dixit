@@ -18,7 +18,7 @@ export function OnBoarding({ onNext }: IFunnelProps) {
   const currentStepData = ONBOARDING_STEPS[currentStep]
 
   return (
-    <Card className="w-full max-w-md mx-auto relative">
+    <Card className="w-full  ">
       <CardHeader>
         <CardTitle className="text-xl text-center">{currentStepData.title}</CardTitle>
       </CardHeader>
