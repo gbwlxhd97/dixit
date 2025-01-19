@@ -11,7 +11,7 @@ function App() {
 
   return (
     // TODO FUNNEL HOOKS 분리
-    <main className="w-full min-h-screen flex items-center justify-center">
+    <main className="w-full min-h-screen flex items-center justify-center p-4">
       {step === 'onBoarding' && <OnBoarding onNext={() => setStep('playerSetup')} />}
       {step === 'playerSetup' && <PlayerSetup onNext={() => setStep('gameSetup')} />}
       {step === 'gameSetup' && <GameSetup onNext={() => setStep('gameStart')} variant="page" />}
