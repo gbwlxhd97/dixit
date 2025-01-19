@@ -42,7 +42,7 @@ export function ScoreBoard() {
             {players
               .sort((a, b) => b.totalScore - a.totalScore)
               .map((player, playerIndex) => (
-                <TableRow key={player.name}>
+                <TableRow key={player.name} className="text-center">
                   <TableCell>{player.name}</TableCell>
                   {displayScores[playerIndex].map((score, i) => (
                     <TableCell key={i} className="text-center">

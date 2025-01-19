@@ -29,7 +29,6 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
     value: string
   ) => {
     const numValue = parseInt(value)
-    if (!isNaN(numValue)) {
       setTempSettings(prev => ({
         ...prev,
         [category]: {
@@ -37,14 +36,10 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           [field]: numValue,
         },
       }))
-    }
   }
 
   const handleWinScoreChange = (value: string) => {
-    const numValue = parseInt(value)
-    if (!isNaN(numValue) && numValue > 0) {
-      setTempWinScore(value)
-    }
+    setTempWinScore(value)
   }
 
   const handleConfirm = () => {

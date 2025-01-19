@@ -5,13 +5,14 @@ import { IFunnelProps } from '@/interfaces/funnel'
 
 export function GameResult({ onNext }: IFunnelProps) {
   const { players, resetGame } = useGameStore()
-
   // 최고 점수 찾기
   const highestScore = Math.max(...players.map(player => player.totalScore))
 
   // 공동 우승자 찾기
   const winners = players.filter(player => player.totalScore === highestScore)
   const isCoWinner = winners.length > 1
+
+  const sortedPlayers = players.sort((a, b) => b.totalScore - a.totalScore)
 
   const handleRestart = () => {
     resetGame()
@@ -32,9 +33,7 @@ export function GameResult({ onNext }: IFunnelProps) {
         </div>
 
         <div className="space-y-2">
-          {players
-            .sort((a, b) => b.totalScore - a.totalScore)
-            .map((player, _, sortedPlayers) => {
+          {sortedPlayers.map((player, _, sortedPlayers) => {
               // 동점자 처리를 위한 순위 계산
               const currentRank =
                 sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1

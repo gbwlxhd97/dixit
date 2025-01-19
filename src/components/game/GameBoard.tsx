@@ -26,12 +26,9 @@ export function GameStart({ onNext }: IFunnelProps) {
 
     Object.entries(tempScores).forEach(([playerIndex, score]) => {
       const numberScore = parseInt(score, 10)
-      if (!isNaN(numberScore)) {
-        addScore(parseInt(playerIndex), numberScore)
-        // 현재 플레이어의 총점 계산
-        const playerTotalScore = players[parseInt(playerIndex)].totalScore + numberScore
-        updatedScores[parseInt(playerIndex)] = playerTotalScore
-      }
+      addScore(parseInt(playerIndex), numberScore)
+      const playerTotalScore = players[parseInt(playerIndex)].totalScore + numberScore
+      updatedScores[parseInt(playerIndex)] = playerTotalScore
     })
 
     const hasWinner = updatedScores.some(score => score >= defaultWinScore)
