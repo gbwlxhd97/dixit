@@ -1,5 +1,5 @@
 import './App.css'
-import { PlayerSetup } from './components/custom/PlayerSetup'
+import { PlayerSetup } from './components/setup/PlayerSetup'
 import { GameStart } from './components/game/GameBoard'
 import { GameResult } from './components/game/GameResult'
 import { useGameStore } from './stores/gameStore'
@@ -10,6 +10,7 @@ function App() {
   const { step, setStep } = useGameStore()
 
   return (
+    // TODO FUNNEL HOOKS 분리
     <main className="w-full flex items-center justify-center">
       {step === 'onBoarding' && <OnBoarding onNext={() => setStep('playerSetup')} />}
       {step === 'playerSetup' && <PlayerSetup onNext={() => setStep('gameSetup')} />}
