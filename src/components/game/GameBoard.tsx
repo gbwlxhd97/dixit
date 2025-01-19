@@ -52,8 +52,8 @@ export function GameStart({ onNext }: IFunnelProps) {
   )
 
   return (
-    <div className="space-y-6">
-      <Card className="w-full">
+    <div className="space-y-6 w-full">
+      <Card>
         <CardHeader className="pb-2">
           <CardTitle>라운드 {currentRound}</CardTitle>
         </CardHeader>
