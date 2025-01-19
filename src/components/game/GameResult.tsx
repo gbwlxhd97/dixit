@@ -34,19 +34,18 @@ export function GameResult({ onNext }: IFunnelProps) {
 
         <div className="space-y-2">
           {sortedPlayers.map((player, _, sortedPlayers) => {
-              // 동점자 처리를 위한 순위 계산
-              const currentRank =
-                sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
+            // 동점자 처리를 위한 순위 계산
+            const currentRank = sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
 
-              return (
-                <div key={player.name} className="flex justify-between items-center">
-                  <span>
-                    {currentRank}위 {player.name}
-                  </span>
-                  <span>{player.totalScore}점</span>
-                </div>
-              )
-            })}
+            return (
+              <div key={player.name} className="flex justify-between items-center">
+                <span>
+                  {currentRank}위 {player.name}
+                </span>
+                <span>{player.totalScore}점</span>
+              </div>
+            )
+          })}
         </div>
 
         <Button className="w-full" onClick={handleRestart}>

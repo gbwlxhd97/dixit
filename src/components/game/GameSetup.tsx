@@ -29,13 +29,13 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
     value: string
   ) => {
     const numValue = parseInt(value)
-      setTempSettings(prev => ({
-        ...prev,
-        [category]: {
-          ...prev[category],
-          [field]: numValue,
-        },
-      }))
+    setTempSettings(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [field]: numValue,
+      },
+    }))
   }
 
   const handleWinScoreChange = (value: string) => {
