@@ -34,7 +34,7 @@ export function PlayerSetup({ onNext }: IFunnelProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-center mb-2">플레이어 등록</CardTitle>
+        <CardTitle className="text-center mb-6">플레이어 등록</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
