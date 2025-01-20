@@ -10,13 +10,7 @@ import { BuggyCounter } from './components/BuggyCounter'
 import { useFunnel } from './hooks/useFunnel'
 
 function App() {
-  const [step, setStep, Funnel] = useFunnel([
-    'onBoarding',
-    'playerSetup',
-    'gameSetup',
-    'gameStart',
-    'gameResult',
-  ])
+  const [step, setStep, Funnel] = useFunnel()
 
   return (
     <ErrorBoundary>

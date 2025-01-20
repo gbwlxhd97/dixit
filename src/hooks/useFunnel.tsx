@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-
-type Step = 'onBoarding' | 'playerSetup' | 'gameSetup' | 'gameStart' | 'gameResult'
+import React from 'react'
+import { useGameStore } from '@/stores/gameStore'
+import { Step } from '@/interfaces/funnel'
 
 interface FunnelStepProps {
   name: Step
   children: React.ReactNode
 }
 
-export const useFunnel = (steps: Step[]) => {
-  const [step, setStep] = useState<Step>(steps[0])
+export const useFunnel = () => {
+  const { step, setStep } = useGameStore()
 
   const Funnel = ({ children }: { children: React.ReactNode }) => {
     return <>{children}</>

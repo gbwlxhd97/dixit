@@ -18,7 +18,8 @@ interface GameSetupProps extends Partial<IFunnelProps> {
 }
 
 export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
-  const { scoreSettings, setScoreSettings, defaultWinScore, setDefaultWinScore } = useGameStore()
+  const { scoreSettings, setScoreSettings, defaultWinScore, setDefaultWinScore, resetGame } =
+    useGameStore()
   const [tempSettings, setTempSettings] = useState(scoreSettings)
   const [tempWinScore, setTempWinScore] = useState(defaultWinScore.toString())
   const [open, setOpen] = useState(false)
@@ -140,6 +141,15 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           {variant === 'dialog' ? '저장' : '다음'}
         </Button>
       </div>
+      {variant === 'dialog' && (
+        <Button
+          variant="outline"
+          className="w-full bg-red-50 text-red-500 hover:bg-red-100 hover:text-red-600 border-red-200"
+          onClick={() => resetGame()}
+        >
+          게임 초기화 하기
+        </Button>
+      )}
     </div>
   )
 
