@@ -1,4 +1,4 @@
-type Step = 'onBoarding' | 'playerSetup' | 'gameSetup' | 'gameStart' | 'gameResult'
+import { Step } from './funnel'
 
 export interface IPlayer {
   name: string
