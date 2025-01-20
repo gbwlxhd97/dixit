@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   Table,
   TableBody,
@@ -13,12 +14,14 @@ import { GameSetup } from '../game/GameSetup'
 export function ScoreBoard() {
   const { players } = useGameStore()
 
-  // 실제로 점수가 입력된 라운드 수 계산
-  const completedRounds = Math.max(...players.map(player => player.scores.length))
+  const { displayScores, displayRounds } = useMemo(() => {
+    const maxRounds = Math.max(...players.map(player => player.scores.length))
+    return {
+      displayScores: players.map(player => player.scores.slice(0, maxRounds)),
+      displayRounds: Array.from({ length: maxRounds }),
+    }
+  }, [players])
 
-  // 표시할 점수 배열 계산 undefined 방지
-  const displayScores = players.map(player => player.scores.slice(0, completedRounds))
-  const displayRounds = Array.from({ length: completedRounds })
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
