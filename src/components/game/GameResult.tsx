@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { IFunnelProps } from '@/interfaces/funnel'
 import { Table, TableHeader, TableBody, TableCell, TableRow, TableHead } from '../ui/table'
+import { calculateRank } from '@/lib/utils'
+
 
 export function GameResult({ onNext }: IFunnelProps) {
   const { players, resetGame } = useGameStore()
@@ -13,7 +15,8 @@ export function GameResult({ onNext }: IFunnelProps) {
   const winners = players.filter(player => player.totalScore === highestScore)
   const isCoWinner = winners.length > 1
 
-  const sortedPlayers = players.sort((a, b) => b.totalScore - a.totalScore)
+  // 결과 페이지에서만 순위대로 정렬 (내림차순)
+  const sortedPlayers = [...players].sort((a, b) => b.totalScore - a.totalScore)
 
   const handleRestart = () => {
     resetGame()
@@ -43,18 +46,13 @@ export function GameResult({ onNext }: IFunnelProps) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedPlayers.map((player, _, sortedPlayers) => {
-                // 동점자 처리를 위한 순위 계산
-                const currentRank = sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
-                
-                return (
-                  <TableRow key={player.name} className="text-center">
-                    <TableCell>{currentRank}위</TableCell>
-                    <TableCell>{player.name}</TableCell>
-                    <TableCell className="font-bold">{player.totalScore}점</TableCell>
-                  </TableRow>
-                )
-              })}
+              {sortedPlayers.map((player) => (
+                <TableRow key={player.name} className="text-center">
+                  <TableCell>{calculateRank(player, players)}위</TableCell>
+                  <TableCell>{player.name}</TableCell>
+                  <TableCell className="font-bold">{player.totalScore}점</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
