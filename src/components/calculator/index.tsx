@@ -120,6 +120,7 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
         <div className="space-y-4">
           <MainScoreSection mainCase={mainCase} onMainCaseSelect={handleMainCaseSelect} />
 
+          {/* 일부만 정답을 맞췄을 경우 */}
           {mainCase === PLAYER_CASES.SOME_CORRECT && (
             <CorrectPlayersSection
               players={players}

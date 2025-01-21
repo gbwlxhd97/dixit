@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { GameScoreSetting } from './setup/GameScoreSetting'
 
 interface GameSetupProps extends Partial<IFunnelProps> {
   variant?: 'dialog' | 'page'
@@ -66,73 +67,36 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
           <span className="text-sm text-muted-foreground">점</span>
         </div>
       </div>
-      {/* TODO 컴포넌트 분리하기 */}
-      <div className="space-y-2">
-        <h3 className="font-medium">모두 맞추거나 아무도 못 맞춘 경우</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">이야기꾼</label>
-            <Input
-              type="number"
-              value={tempSettings.allCorrect.storyteller}
-              onChange={e => handleSettingChange('allCorrect', 'storyteller', e.target.value)}
-            />
-          </div>
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">다른 플레이어</label>
-            <Input
-              type="number"
-              value={tempSettings.allCorrect.others}
-              onChange={e => handleSettingChange('allCorrect', 'others', e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-medium">일부만 맞춘 경우</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">이야기꾼</label>
-            <Input
-              type="number"
-              value={tempSettings.someCorrect.storyteller}
-              onChange={e => handleSettingChange('someCorrect', 'storyteller', e.target.value)}
-            />
-          </div>
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">맞춘 플레이어</label>
-            <Input
-              type="number"
-              value={tempSettings.someCorrect.correct}
-              onChange={e => handleSettingChange('someCorrect', 'correct', e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-medium">다른 플레이어 카드 맞춘 경우</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">맞춘 사람</label>
-            <Input
-              type="number"
-              value={tempSettings.findOthers.finder}
-              onChange={e => handleSettingChange('findOthers', 'finder', e.target.value)}
-            />
-          </div>
-          <div className="space-y-1">
-            <label className="text-sm text-muted-foreground">카드 주인</label>
-            <Input
-              type="number"
-              value={tempSettings.findOthers.owner}
-              onChange={e => handleSettingChange('findOthers', 'owner', e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
+      <GameScoreSetting
+        title="모두 맞추거나 아무도 못 맞춘 경우"
+        fields={[
+          { key: 'storyteller', label: '이야기꾼' },
+          { key: 'others', label: '다른 플레이어' },
+        ]}
+        values={tempSettings.allCorrect}
+        category="allCorrect"
+        onSettingChange={handleSettingChange}
+      />
+      <GameScoreSetting
+        title="일부만 맞춘 경우"
+        fields={[
+          { key: 'storyteller', label: '이야기꾼' },
+          { key: 'correct', label: '맞춘 플레이어' },
+        ]}
+        values={tempSettings.someCorrect}
+        category="someCorrect"
+        onSettingChange={handleSettingChange}
+      />
+      <GameScoreSetting
+        title="다른 플레이어 카드 맞춘 경우"
+        fields={[
+          { key: 'finder', label: '맞춘 사람' },
+          { key: 'owner', label: '카드 주인' },
+        ]}
+        values={tempSettings.findOthers}
+        category="findOthers"
+        onSettingChange={handleSettingChange}
+      />
       <div className="flex gap-4">
         <Button variant="outline" className="flex-1" onClick={() => setTempSettings(scoreSettings)}>
           기본값으로 초기화
@@ -153,6 +117,9 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
     </div>
   )
 
+  /**
+   * 재설정 모달 버전
+   */
   if (variant === 'dialog') {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -171,6 +138,9 @@ export function GameSetup({ onNext, variant = 'page' }: GameSetupProps) {
     )
   }
 
+  /**
+   * 초기 페이지 버전
+   */
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
