@@ -9,7 +9,7 @@ export const useGameStore = create<IGameState>()(
       step: 'onBoarding',
       players: [],
       currentRound: 1,
-      currentPlayerIndex: 0,
+      currentPlayerIndex: 0, // 현재 이야기꾼 인덱스
       defaultWinScore: 30,
       scoreSettings: {
         allCorrect: { storyteller: 0, others: 2 },
@@ -32,11 +32,7 @@ export const useGameStore = create<IGameState>()(
           const newPlayers = [...state.players]
           newPlayers[playerIndex] = {
             ...newPlayers[playerIndex],
-            scores: [
-              ...newPlayers[playerIndex].scores.slice(0, state.currentRound - 1),
-              score,
-              ...newPlayers[playerIndex].scores.slice(state.currentRound),
-            ],
+            scores: [...newPlayers[playerIndex].scores, score],
           }
           newPlayers[playerIndex].totalScore = newPlayers[playerIndex].scores.reduce(
             (a, b) => a + b,
@@ -49,6 +45,7 @@ export const useGameStore = create<IGameState>()(
       nextRound: () =>
         set(state => ({
           currentRound: state.currentRound + 1,
+          // 이야기꾼 인덱스를 다음 플레이어로 변경
           currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
         })),
 
@@ -59,6 +56,11 @@ export const useGameStore = create<IGameState>()(
           currentRound: 1,
           currentPlayerIndex: 0,
           defaultWinScore: 30,
+          scoreSettings: {
+            allCorrect: { storyteller: 0, others: 2 },
+            someCorrect: { storyteller: 3, correct: 3 },
+            findOthers: { finder: 0, owner: 1 },
+          },
         }),
       setDefaultWinScore: score => set({ defaultWinScore: score }),
       setScoreSettings: settings => set({ scoreSettings: settings }),

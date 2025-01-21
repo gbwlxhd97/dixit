@@ -1,9 +1,4 @@
-interface OnboardingStep {
-  title: string
-  description: string
-}
-
-export const ONBOARDING_STEPS: OnboardingStep[] = [
+export const ONBOARDING_STEPS = [
   {
     title: 'Dixit 점수판에 오신 것을 환영합니다! 👋',
     description: '게임을 더 재미있게 즐기실 수 있도록 도와드리겠습니다.',

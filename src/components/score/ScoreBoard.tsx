@@ -17,6 +17,7 @@ export function ScoreBoard() {
   const { displayScores, displayRounds } = useMemo(() => {
     const maxRounds = Math.max(...players.map(player => player.scores.length))
     return {
+      // 게임 계산 도중 점수판과 라운드가 다른 경우 라운드 수를 맞추기 위해 slice 하여 표시
       displayScores: players.map(player => player.scores.slice(0, maxRounds)),
       displayRounds: Array.from({ length: maxRounds }),
     }
@@ -33,6 +34,7 @@ export function ScoreBoard() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]	text-center">순위</TableHead>
+              <TableHead className="w-[100px]	text-center">이름</TableHead>
               {displayRounds.map((_, i) => (
                 <TableHead key={i} className="text-center w-[80px]">
                   {`R${i + 1}`}
@@ -45,7 +47,8 @@ export function ScoreBoard() {
             {players
               .sort((a, b) => b.totalScore - a.totalScore)
               .map((player, playerIndex) => (
-                <TableRow key={player.name} className="text-center">
+                <TableRow key={playerIndex} className="text-center">
+                  <TableCell>{playerIndex + 1}</TableCell>
                   <TableCell>{player.name}</TableCell>
                   {displayScores[playerIndex].map((score, i) => (
                     <TableCell key={i} className="text-center">

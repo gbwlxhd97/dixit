@@ -26,6 +26,11 @@
 📦src
  ┣ 📂assets - (이미지, 아이콘 등)
  ┣ 📂components - (컴포넌트)
+ ┃ ┣ 📂game - (게임 관련 컴포넌트)
+ ┃ ┣ 📂setup - (설정 관련 컴포넌트)
+ ┃ ┣ 📂onboarding - (온보딩 관련 컴포넌트)
+ ┃ ┣ 📂calculator - (점수 계산 관련 컴포넌트)
+ ┃ ┣ 📂score - (점수판 관련 컴포넌트)
  ┃ ┗ 📂ui - (최소 단위 공통 컴포넌트)
  ┣ 📂constants - (상수)
  ┣ 📂hooks - (커스텀 훅)
