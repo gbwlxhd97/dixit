@@ -1,9 +1,10 @@
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { PlayerCaseType } from '@/interfaces/game'
 
 interface MainScoreSectionProps {
-  mainCase: 'allCorrect' | 'someCorrect' | null
-  onMainCaseSelect: (value: string) => void
+  mainCase: PlayerCaseType | null
+  onMainCaseSelect: (value: PlayerCaseType) => void
 }
 
 export function MainScoreSection({ mainCase, onMainCaseSelect }: MainScoreSectionProps) {

@@ -12,6 +12,8 @@ import { toast } from 'sonner'
 import { MainScoreSection } from './MainScoreSection'
 import { CorrectPlayersSection } from './CorrectPlayersSection'
 import { OtherCardsSection } from './OtherCardsSection'
+import { PLAYER_CASES } from '@/constants'
+import { PlayerCaseType } from '@/interfaces/game'
 
 interface Props {
   onScoreCalculated: (scores: { [key: number]: string }) => void
@@ -19,14 +21,14 @@ interface Props {
 
 export function ScoreCalculator({ onScoreCalculated }: Props) {
   const { players, currentPlayerIndex, scoreSettings } = useGameStore()
-  const [mainCase, setMainCase] = useState<'allCorrect' | 'someCorrect' | null>(null)
+  const [mainCase, setMainCase] = useState<PlayerCaseType | null>(null)
   const [isOtherCardsFound, setIsOtherCardsFound] = useState(false)
   const [correctPlayers, setCorrectPlayers] = useState<number[]>([])
   const [foundCards, setFoundCards] = useState<{ [key: number]: number[] }>({})
   const [open, setOpen] = useState(false)
 
-  const handleMainCaseSelect = (value: string) => {
-    setMainCase(value as 'allCorrect' | 'someCorrect')
+  const handleMainCaseSelect = (value: PlayerCaseType) => {
+    setMainCase(value)
     setCorrectPlayers([])
   }
 
@@ -64,14 +66,14 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
     })
 
     // 메인 케이스 점수 계산
-    if (mainCase === 'allCorrect') {
+    if (mainCase === PLAYER_CASES.ALL_CORRECT) {
       scores[currentPlayerIndex] = scoreSettings.allCorrect.storyteller
       players.forEach((_, index) => {
         if (index !== currentPlayerIndex) {
           scores[index] = scoreSettings.allCorrect.others
         }
       })
-    } else if (mainCase === 'someCorrect') {
+    } else if (mainCase === PLAYER_CASES.SOME_CORRECT) {
       scores[currentPlayerIndex] = scoreSettings.someCorrect.storyteller
       correctPlayers.forEach(playerIndex => {
         scores[playerIndex] = scoreSettings.someCorrect.correct
@@ -118,7 +120,7 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
         <div className="space-y-4">
           <MainScoreSection mainCase={mainCase} onMainCaseSelect={handleMainCaseSelect} />
 
-          {mainCase === 'someCorrect' && (
+          {mainCase === PLAYER_CASES.SOME_CORRECT && (
             <CorrectPlayersSection
               players={players}
               currentPlayerIndex={currentPlayerIndex}
@@ -141,7 +143,7 @@ export function ScoreCalculator({ onScoreCalculated }: Props) {
             onClick={calculateScores}
             disabled={
               !mainCase ||
-              (mainCase === 'someCorrect' && correctPlayers.length === 0) ||
+              (mainCase === PLAYER_CASES.SOME_CORRECT && correctPlayers.length === 0) ||
               (isOtherCardsFound && Object.keys(foundCards).length === 0)
             }
           >

@@ -1,3 +1,4 @@
+import { PLAYER_CASES } from '@/constants'
 import { Step } from './funnel'
 
 export interface IPlayer {
@@ -28,3 +29,5 @@ export interface IGameState {
   setDefaultWinScore: (score: number) => void
   setScoreSettings: (settings: IScoreSettings) => void
 }
+
+export type PlayerCaseType = typeof PLAYER_CASES.ALL_CORRECT | typeof PLAYER_CASES.SOME_CORRECT

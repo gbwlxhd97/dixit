@@ -30,3 +30,8 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
 export const MIN_PLAYERS_COUNT = 4
 
 export const DIXIT_STORAGE_KEY = 'dixit-game-storage'
+
+export const PLAYER_CASES = {
+  ALL_CORRECT: 'allCorrect',
+  SOME_CORRECT: 'someCorrect',
+}
