@@ -30,14 +30,12 @@ export const useGameStore = create<IGameState>()(
       addScore: (playerIndex, score) =>
         set(state => {
           const newPlayers = [...state.players]
+          const newScores = [...newPlayers[playerIndex].scores, score];
           newPlayers[playerIndex] = {
             ...newPlayers[playerIndex],
-            scores: [...newPlayers[playerIndex].scores, score],
+            scores: newScores,
+            totalScore: newScores.reduce((a, b) => a + b, 0),
           }
-          newPlayers[playerIndex].totalScore = newPlayers[playerIndex].scores.reduce(
-            (a, b) => a + b,
-            0
-          )
 
           return { players: newPlayers }
         }),
