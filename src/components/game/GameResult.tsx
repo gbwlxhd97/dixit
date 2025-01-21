@@ -2,6 +2,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { IFunnelProps } from '@/interfaces/funnel'
+import { Table, TableHeader, TableBody, TableCell, TableRow, TableHead } from '../ui/table'
 
 export function GameResult({ onNext }: IFunnelProps) {
   const { players, resetGame } = useGameStore()
@@ -33,19 +34,29 @@ export function GameResult({ onNext }: IFunnelProps) {
         </div>
 
         <div className="space-y-2">
-          {sortedPlayers.map((player, _, sortedPlayers) => {
-            // 동점자 처리를 위한 순위 계산
-            const currentRank = sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
-
-            return (
-              <div key={player.name} className="flex justify-between items-center">
-                <span>
-                  {currentRank}위 {player.name}
-                </span>
-                <span>{player.totalScore}점</span>
-              </div>
-            )
-          })}
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px] text-center">순위</TableHead>
+                <TableHead className="w-[100px] text-center">이름</TableHead>
+                <TableHead className="text-center w-[80px]">총점</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {sortedPlayers.map((player, _, sortedPlayers) => {
+                // 동점자 처리를 위한 순위 계산
+                const currentRank = sortedPlayers.findIndex(p => p.totalScore === player.totalScore) + 1
+                
+                return (
+                  <TableRow key={player.name} className="text-center">
+                    <TableCell>{currentRank}위</TableCell>
+                    <TableCell>{player.name}</TableCell>
+                    <TableCell className="font-bold">{player.totalScore}점</TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
         </div>
 
         <Button className="w-full" onClick={handleRestart}>
